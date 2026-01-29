@@ -32,11 +32,23 @@ app.use(cookieParser());
 // Serve static files from public directory
 app.use(express.static("public"));
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://hrms-1-r38u.onrender.com",
+];
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173", // Use environment variable or default
-    credentials: true, // Required for cookies (JWT)
-  })
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps, curl, etc.)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  }),
 );
 app.options("*", cors());
 
