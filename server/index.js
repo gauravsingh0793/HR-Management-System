@@ -34,7 +34,7 @@ app.use(express.static("public"));
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://hrms-1-r38u.onrender.com",
+  "https://hrms-1-r38u.onrender.com/",
 ];
 app.use(
   cors({
