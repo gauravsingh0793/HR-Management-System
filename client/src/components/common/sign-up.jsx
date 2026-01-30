@@ -47,7 +47,7 @@ export const SignUP = ({
             <div className="form-img sm:mx-auto sm:w-full sm:max-w-sm lg:mx-10 animate-fade-in-right">
               <div className="frosted-card rounded-2xl p-8 hover-lift">
                 <img
-                  src="../../src/assets/Employee-Welcome.jpg"
+                  src="/assets/Employee-Welcome.jpg"
                   alt="Welcome"
                   className="mx-auto h-auto w-auto drop-shadow-lg transform hover:scale-105 transition-transform duration-500"
                 />

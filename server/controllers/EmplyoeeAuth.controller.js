@@ -77,13 +77,13 @@ export const HandleEmplyoeeSignup = async (req, res) => {
           res,
           newEmployee._id,
           newEmployee.role,
-          organization._id
+          organization._id,
         );
       }
 
       const VerificationEmailStatus = await SendVerificationEmail(
         email,
-        verificationcode
+        verificationcode,
       );
       SendVerificationEmailStatus: VerificationEmailStatus;
 
@@ -132,7 +132,7 @@ export const HandleEmplyoeeVerifyEmail = async (req, res) => {
     const SendWelcomeEmailStatus = await SendWelcomeEmail(
       ValidateEmployee.email,
       ValidateEmployee.firstname,
-      ValidateEmployee.lastname
+      ValidateEmployee.lastname,
     );
 
     return res.status(200).json({
@@ -175,7 +175,7 @@ export const HandleResetEmplyoeeVerifyEmail = async (req, res) => {
 
     const SendVerificationEmailStatus = await SendVerificationEmail(
       email,
-      verificationcode
+      verificationcode,
     );
     return res.status(200).json({
       success: true,
@@ -214,7 +214,7 @@ export const HandleEmplyoeeLogin = async (req, res) => {
       res,
       employee._id,
       employee.role,
-      employee.organizationID
+      employee.organizationID,
     );
     employee.lastlogin = new Date();
 
@@ -252,7 +252,11 @@ export const HandleEmployeeCheck = async (req, res) => {
 
 export const HandleEmplyoeeLogout = async (req, res) => {
   try {
-    res.clearCookie("EMtoken");
+    res.clearCookie("EMtoken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    });
     return res
       .status(200)
       .json({ success: true, message: "Logged out successfully" });
@@ -289,7 +293,7 @@ export const HandleEmplyoeeForgotPassword = async (req, res) => {
     const URL = `${process.env.CLIENT_URL}/auth/employee/resetpassword/${resetToken}`;
     const SendForgotPasswordEmailStatus = await SendForgotPasswordEmail(
       email,
-      URL
+      URL,
     );
     return res.status(200).json({
       success: true,

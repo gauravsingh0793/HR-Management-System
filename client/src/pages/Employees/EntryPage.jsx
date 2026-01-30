@@ -20,7 +20,7 @@ export const EntryPage = () => {
             <div className="relative mb-6">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 rounded-full blur-2xl opacity-30 animate-pulse"></div>
               <img
-                src="../../src/assets/Welcome.png"
+                src="/assets/welcome.png"
                 alt="Welcome"
                 className="relative sm:max-w-sm md:max-w-md lg:max-w-md xl:max-w-lg drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
               />

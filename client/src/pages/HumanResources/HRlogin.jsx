@@ -45,7 +45,7 @@ export const HRLogin = () => {
       <div className="employee-login-content flex justify-center items-center h-[100vh]">
         <LoadingBar ref={loadingbar} />
         <SignIn
-          image={"../../src/assets/Employee-Welcome.jpg"}
+          image={"/assets/Employee-Welcome.jpg"}
           handlesigninform={handlesigninform}
           handlesigninsubmit={handlesigninsubmit}
           targetedstate={HRState}

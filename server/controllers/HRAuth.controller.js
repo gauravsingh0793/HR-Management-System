@@ -94,11 +94,11 @@ export const HandleHRSignup = async (req, res) => {
       res,
       newHR._id,
       newHR.role,
-      targetOrganization._id
+      targetOrganization._id,
     );
     const VerificationEmailStatus = await SendVerificationEmail(
       email,
-      verificationcode
+      verificationcode,
     );
     return res.status(201).json({
       success: true,
@@ -140,7 +140,7 @@ export const HandleHRVerifyEmail = async (req, res) => {
       HR.email,
       HR.firstname,
       HR.lastname,
-      HR.role
+      HR.role,
     );
     return res.status(200).json({
       success: true,
@@ -198,7 +198,11 @@ export const HandleHRLogin = async (req, res) => {
 
 export const HandleHRLogout = async (req, res) => {
   try {
-    res.clearCookie("HRtoken");
+    res.clearCookie("HRtoken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    });
     return res
       .status(200)
       .json({ success: true, message: "HR Logged Out Successfully" });
@@ -261,7 +265,7 @@ export const HandleHRForgotPassword = async (req, res) => {
     const URL = `${process.env.CLIENT_URL}/auth/HR/resetpassword/${resetToken}`;
     const SendResetPasswordEmailStatus = await SendForgotPasswordEmail(
       email,
-      URL
+      URL,
     );
     return res.status(200).json({
       success: true,
@@ -308,7 +312,7 @@ export const HandleHRResetPassword = async (req, res) => {
     await HR.save();
 
     const SendPasswordResetEmailStatus = await SendResetPasswordConfimation(
-      HR.email
+      HR.email,
     );
     return res.status(200).json({
       success: true,
@@ -359,7 +363,7 @@ export const HandleHRResetverifyEmail = async (req, res) => {
 
     const SendVerificationEmailStatus = await SendVerificationEmail(
       email,
-      verificationcode
+      verificationcode,
     );
     return res.status(200).json({
       success: true,

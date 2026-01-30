@@ -47,7 +47,7 @@ export const HRSignUp = ({
             <div className="form-img flex-shrink-0 animate-fade-in-right">
               <div className="rounded-2xl p-8">
                 <img
-                  src="../../src/assets/Employee-Welcome.jpg"
+                  src="/assets/Employee-Welcome.jpg"
                   alt="Welcome"
                   className="w-full max-w-sm h-auto drop-shadow-lg transform hover:scale-105 transition-transform duration-500"
                 />
